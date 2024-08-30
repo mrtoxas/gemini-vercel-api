@@ -12,14 +12,20 @@ app.post("/gemini-message", async function (req, res) {
       return res.status(400).json({ error: "Prompt is required" });
     }
 
+    console.log('prompt:', req.body.prompt);
+
     const google = createGoogleGenerativeAI({
       apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
     });
+
+    console.log('key:', process.env.GOOGLE_GENERATIVE_AI_API_KEY)
 
     const result = await generateText({
       model: google("gemini-1.5-flash"),
       prompt: req.body.prompt,
     });
+
+    console.log('result:', result)
 
     console.log("Raw API response:", result);
 
