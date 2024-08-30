@@ -16,23 +16,31 @@ app.post("/gemini-message", async function (req, res) {
       apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
     });
 
-    const { text } = await generateText({
+    const result = await generateText({
       model: google("gemini-1.5-flash"),
       prompt: req.body.prompt,
     });
 
-    res.json({ response: text });
+    console.log("Raw API response:", result);
+
+    if (typeof result !== 'object' || !result.text) {
+      throw new Error("Unexpected response format from Gemini API");
+    }
+
+    res.json({ response: result.text });
   } catch (error) {
-    let errorMessage = "Failed to createGoogleGenerativeAI";
+    console.error("Error details:", error);
+
+    let errorMessage = "An error occurred while processing the request";
     if (error instanceof Error) {
       errorMessage = error.message;
     }
-    console.log(errorMessage);
+
     res.status(500).json({ error: errorMessage });
   }
 });
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
