@@ -8,6 +8,10 @@ app.use(express.json());
 
 app.post("/gemini-message", async function (req, res) {
   try {
+    if (!req.body.prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
+    }
+
     const google = createGoogleGenerativeAI({
       apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
     });
@@ -17,7 +21,7 @@ app.post("/gemini-message", async function (req, res) {
       prompt: req.body.prompt,
     });
 
-    res.json({ text });
+    res.json({ response: text });
   } catch (error) {
     let errorMessage = "Failed to createGoogleGenerativeAI";
     if (error instanceof Error) {
@@ -27,5 +31,12 @@ app.post("/gemini-message", async function (req, res) {
     res.status(500).json({ error: errorMessage });
   }
 });
+
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Сервер запущен на порту ${PORT}`);
+  });
+}
 
 export default app;
