@@ -1,10 +1,32 @@
-# Gemini Message Generator
+# Gemini Flash Text Generation via Express with Vercel
+This project is a Node.js application deployed on Vercel, utilizing Express and the Gemini Flash API. The core functionality involves processing user prompts and generating text responses through the Gemini Flash API.
 
-This project is a simple Express.js API that integrates with Google's Generative AI (Gemini 1.5) to generate text responses. The application is deployed on Vercel.
+## Configuration
+Create a .env file in the root of the project and add your API key:
 
-## Features
+```GOOGLE_GENERATIVE_AI_API_KEY=your_api_key```
 
-- **Text Generation**: Send a POST request with a prompt, and receive a generated text response using Google's Generative AI.
+You can get the key in [Google AI Studio](https://aistudio.google.com/app/apikey?hl=ru).
+
+## Usage
+- Method: POST
+- Description: Accepts a text prompt and returns the generated text.
+- Parameters:
+  - ```prompt``` (string): The text prompt for generation.
+
+## Example Request
+### Dev mode:
+```
+curl -X POST http://localhost:3000/api/gemini \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Your text prompt"}'
+```
+### In production:
+```
+curl -X POST http://your-domain.vercel.app/gemini \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Your text prompt"}'
+```
 
 ## Prerequisites
 
