@@ -6,6 +6,8 @@ import { generateText } from "ai";
 const app = express();
 app.use(express.json());
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.post("/gemini-message", async function (req, res) {
   try {
     if (!req.body.prompt) {
@@ -45,12 +47,5 @@ app.post("/gemini-message", async function (req, res) {
     res.status(500).json({ error: errorMessage });
   }
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Сервер запущен на порту ${PORT}`);
-  });
-}
 
 export default app;
