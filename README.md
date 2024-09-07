@@ -1,4 +1,4 @@
-# Gemini Flash Text Generation via Express with Vercel
+# Gemini Flash Text Generation via Express and Vercel AI SDK
 This project is a Node.js application deployed on Vercel, utilizing Express and the Gemini Flash API. The core functionality involves processing user prompts and generating text responses through the Gemini Flash API.
 
 ## Configuration
