@@ -12,20 +12,21 @@ You can get the key in [Google AI Studio](https://aistudio.google.com/app/apikey
 - Method: POST
 - Description: Accepts a text prompt and returns the generated text.
 - Parameters:
-  - ```prompt``` (string): The text prompt for generation.
+  - ```prompt: string``` - The text prompt for generation.
 
 ## Example Request
-### Dev mode:
-```
-curl -X POST http://localhost:3000/api/gemini \
-  -H "Content-Type: application/json" \
-  -d '{"prompt": "Your text prompt"}'
-```
-### In production:
 ```
 curl -X POST http://your-domain.vercel.app/gemini \
   -H "Content-Type: application/json" \
-  -d '{"prompt": "Your text prompt"}'
+  -d '{"prompt": "Say me hello!"}'
+```
+### Success Response:
+```
+{ "response": "Hello! How can I help you today? \n" }
+```
+### Error Response:
+```
+{ "error": "Error message describing what went wrong." }
 ```
 
 ## Prerequisites
